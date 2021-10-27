@@ -299,7 +299,7 @@ void do_setup() {
 	MCUSR &= ~(1<<WDRF);
 #endif
 
-	if (ESP12F_RELAY_X4) {
+	if (ESP12F_RELAY_X4 || NODEMCU_74HC595) {
 		DEBUG_BEGIN(74880); // The ESP8266's genuine baud rate
 	} else {
 		DEBUG_BEGIN(115200);

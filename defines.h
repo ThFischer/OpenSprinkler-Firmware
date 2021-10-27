@@ -24,7 +24,8 @@
 #ifndef _DEFINES_H
 #define _DEFINES_H
 
-#define ESP12F_RELAY_X4 true
+#define ESP12F_RELAY_X4 false
+#define NODEMCU_74HC595 true
 #define IGNORE_CURR true
 #define BUTTON_3_PULLDOWN true
 
@@ -362,13 +363,21 @@ enum {
 	#define V2_IO_OUTPUT         0x1E00 // output bits
 	#define V2_PIN_BUTTON_1      2 // button 1
 	#define V2_PIN_BUTTON_2      0 // button 2
-	#ifdef ESP12F_RELAY_X4
+
+	#if defined(ESP12F_RELAY_X4) || defined(NODEMCU_74HC595)
 		#define V2_PIN_BUTTON_3    15 // button 3
 		#define V2_PIN_RFTX        IOEXP_PIN+12
 	#else
 		#define V2_PIN_BUTTON_3    IOEXP_PIN+12 // button 3
 		#define V2_PIN_RFTX        15
 	#endif
+
+	#if defined(NODEMCU_74HC595)
+		#define PIN_SRDAT          16  // "D0"
+		#define PIN_SRLAT          14  // "D5"
+		#define PIN_SRCLK          12  // "D6"
+	#endif
+
 	#define V2_PIN_BOOST         IOEXP_PIN+13
 	#define V2_PIN_BOOST_EN      IOEXP_PIN+14
 	#define V2_PIN_LATCH_COMA    IOEXP_PIN+8  // latch COM+ (anode)

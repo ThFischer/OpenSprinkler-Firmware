@@ -769,7 +769,7 @@ void OpenSprinkler::begin() {
 
 	// Other ESP8266 boards are sometimes detected as OS 3.1 and sometimes as OS 3.2.
 	// To be safe these pins are re-assigned according V2 revision:
-	if (ESP12F_RELAY_X4) {
+	if (ESP12F_RELAY_X4 || NODEMCU_74HC595) {
 		PIN_BUTTON_1 = V2_PIN_BUTTON_1;
 		PIN_BUTTON_2 = V2_PIN_BUTTON_2;
 		PIN_BUTTON_3 = V2_PIN_BUTTON_3;
@@ -934,11 +934,23 @@ void OpenSprinkler::begin() {
 		pinMode(PIN_BUTTON_1, INPUT_PULLUP);
 		pinMode(PIN_BUTTON_2, INPUT);
 		pinMode(PIN_BUTTON_3, INPUT);
+	} else if (NODEMCU_74HC595) {
+		// On NodeMCU the GPIO0 (button 1) and GPIO0 (button 2) have an ext. pullup resistor, GPIO15 (button 3) a pulldown:
+		pinMode(PIN_BUTTON_1, INPUT);
+		pinMode(PIN_BUTTON_2, INPUT);
+		pinMode(PIN_BUTTON_3, INPUT);
 	} else {
 		pinMode(PIN_BUTTON_1, INPUT_PULLUP);
 		pinMode(PIN_BUTTON_2, INPUT_PULLUP);
 		pinMode(PIN_BUTTON_3, INPUT_PULLUP);
 	}
+
+	if (NODEMCU_74HC595) {
+		pinMode(PIN_SRDAT, OUTPUT);
+		pinMode(PIN_SRDAT, OUTPUT);
+		pinMode(PIN_SRCLK, OUTPUT);
+	}
+
 
 	// detect and check RTC type
 	RTC.detect();
@@ -1118,6 +1130,16 @@ void OpenSprinkler::apply_all_station_bits() {
 			bool isActive = station_bits[0] & (1 << i);
 			digitalWrite(stationGPIO[i], isActive ? HIGH : LOW);
 		}
+		return;
+	}
+	if (NODEMCU_74HC595) {
+		pinMode(PIN_SRDAT, OUTPUT);
+		pinMode(PIN_SRLAT, OUTPUT);
+		pinMode(PIN_SRCLK, OUTPUT);
+		digitalWrite(PIN_SRLAT, LOW);
+		// Invert the station bits because on LOW the relay is closed:
+		shiftOut(PIN_SRDAT, PIN_SRCLK, LSBFIRST, ~station_bits[0]);
+		digitalWrite(PIN_SRLAT, HIGH);
 		return;
 	}
 
