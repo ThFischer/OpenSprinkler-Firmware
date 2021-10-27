@@ -1,4 +1,4 @@
-# OpenSprinkler-Firmware for NodeMCU Lua Lolin V3 with 74HC595 and 8 channel Relay board
+# OpenSprinkler-Firmware for NodeMCU Lua Lolin V3 with 74HC595 and 8 channel Relay Board
 > This Firmware is a slightly modified variant of the original OpenSprinkler firmware
 > to run with an inexpensive NodeMCU and a 8 Channels Relay Module
 
@@ -9,7 +9,8 @@
 * Real Time Clock DS1307
 
 ## Known Restrictions
-* Only 8 sprinkler stations are supported (but easy to modify to support chained shift registers)
+* Only 8 sprinkler stations are supported (but easy to modify to support daisy-chained shift registers)
+  For more details [see here](https://weworkweplay.com/play/practical-guide-to-shift-registers/)
 * Sensor 1 and 2 are not supported yet
 * RF Transmitter not supported yet
 * Current sensing is not supported (disabled on the OLED display)
@@ -70,16 +71,15 @@
 
 ## Building and flashing of the firmware
 * In PlatformIO select the "nodemcu_74HC595" task of the Project
+* Unplug the external 5V power supply and connect the NodeMCU via USB cable to you computer
 * Build and upload the Firmware
-* Press the RST button of the ESP12F_Relay_X4 board
+* Press the RST button of the NodeMCU
 * Follow the instructions of the [OpenSprinkler User Manual](https://opensprinklershop.de/wp-content/uploads/2020/05/os-manual_2.1.9.pdf)
 
 
 ## Meta
 
 Distributed under the GNU General Public License license. See [LICENSE.txt](LICENSE.txt) for more information.
-
-[https://github.com/ThFischer/OpenSprinkler-Firmware/tree/ESP-12F-4CH-Relay-Board](https://github.com/ThFischer/OpenSprinkler-Firmware/tree/ESP-12F-4CH-Relay-Board)
 
 ## WIFI improvements:
 If the WiFi connectivity is poor you can add an [external antenna](https://www.amazon.de/gp/product/B07SSYSZM9) like I did in [another project](../README.md).
