@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name lua-lolin-v3)(type KiCad)(uri ${KIPRJMOD}/lua-lolin-v3)(options "")(descr ""))
+)

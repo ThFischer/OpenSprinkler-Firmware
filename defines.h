@@ -385,8 +385,13 @@ enum {
 	#define V2_PIN_SRCLK         IOEXP_PIN+10 // shift register clock
 	#define V2_PIN_SRDAT         IOEXP_PIN+11 // shift register data
 	#define V2_PIN_LATCH_COMK    IOEXP_PIN+15 // latch COM- (cathode)
-	#define V2_PIN_SENSOR1       3  // sensor 1
-	#define V2_PIN_SENSOR2       10 // sensor 2
+	#if defined(NODEMCU_74HC595)
+		#define V2_PIN_SENSOR1     13 // sensor 1
+		#define V2_PIN_SENSOR2     3  // sensor 2
+	#else
+		#define V2_PIN_SENSOR1     3  // sensor 1
+		#define V2_PIN_SENSOR2     10 // sensor 2
+	#endif
 
 #elif defined(OSPI) // for OSPi
 

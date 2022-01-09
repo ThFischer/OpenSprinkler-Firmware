@@ -10,7 +10,7 @@
 
 ## Known Restrictions
 * Only 8 sprinkler stations are supported (but easy to modify to support daisy-chained shift registers)
-  For more details [see here](https://weworkweplay.com/play/practical-guide-to-shift-registers/)
+  For more details [see here](https://weworkweplay.com/play/practical-guide-to-shift-registers/)  
 * Sensor 1 and 2 are not supported yet
 * RF Transmitter not supported yet
 * Current sensing is not supported (disabled on the OLED display)
@@ -31,37 +31,29 @@
   **Important:** If you want to turn on the transformer via a relay (as OpenSprinkler  Master Zone) you should consider to use a ["RC Circuit" aka "Snubber"](https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2047675.m570.l1313&_nkw=Absorption+Snubber+Circuit&_sacat=0) to protect the relay contacts.  
   ![Snubber](../ESP12F_Relay_X4/snubber.png)
 ## Wiring
-                                                                                         ┌────────────────┐
-                                                                                        ─┤GND             │
-                    ┌─────────────────┐                   ┌───────────────────┐          │                │
-           SCL   ◄──┤D1             D6├───────────────────┤CLOCK            Q0├──────────┤IN1   8 ch.     │
-                    │     NodeMCU     │                   │       74HC595     │          │      Relay     │
-           SDA   ◄──┤D2  Lua Lolin  D5├───────────────────┤LATCH   Shift    Q1├──────────┤IN2   Board     │
-                    │       v3        │                   │       Register    │          │                │
-                    │               D0├───────────────────┤DATA             Q2├──────────┤IN3             │
-            ┌────┐  │                 │                   │                   │          │                │
-     GND ◄──┤ B1 ├──┤D4               │                   │                 Q3├──────────┤IN4             │
-            └────┘  │                 │                   │                   │          │                │
-                    │                 │                   │                 Q4├──────────┤IN5             │
-            ┌────┐  │                 │                   │                   │          │                │
-     GND ◄──┤ B2 ├──┤D3             3V├──► 3.3V   3.3V ◄──┤                 Q5├──────────┤IN6             │
-            └────┘  │                 │                   │RESET              │          │                │
-                    │              GND├──► GND     GND ◄──┤GND              Q6├──────────┤IN7          GND├──► GND
-            ┌────┐  │                 │                   │                   │          │                │
-    3.3V ◄──┤ B3 ├──┤D8            VIN├──► +5V    3.3V ◄──┤VCC              Q7├──────────┤IN8          VCC├─
-            └────┘  └─────────────────┘                   └───────────────────┘          │                │
-                                                                                 3.3V ◄──┤VCC       JD-VCC├──► 5V
-                                                                                         └────────────────┘
+```
+                                                                                         ┌────────────────┐  
+                    ┌─────────────────┐                   ┌───────────────────┐         ─┤GND             │  
+           SCL   ◄──┤D1             D6├───────────────────┤CLOCK            Q0├──────────┤IN1   8 ch.     │  
+           SDA   ◄──┤D2   NodeMCU   D5├───────────────────┤LATCH  74HC595   Q1├──────────┤IN2   Relay     │  
+                    │    Lua Lolin  D0├───────────────────┤DATA    Shift    Q2├──────────┤IN3   Board     │  
+ GND ◄── Button1 ◄──┤D4     v3        │                   │       Register  Q3├──────────┤IN4             │  
+ GND ◄── Button2 ◄──┤D3               │            GND ◄──┤/OE              Q4├──────────┤IN5             │  
+3.3V ◄── Button3 ◄──┤D8               │           3.3V ◄──┤RESET            Q5├──────────┤IN6             │  
+                    │               3V├──► 3.3V    GND ◄──┤GND              Q3├──────────┤IN4             │  
+ GND ◄── Sensor1 ◄──┤D7            GND├──► GND    3.3V ◄──┤VCC              Q6├──────────┤IN7             │  
+ GND ◄── Sensor2 ◄──┤RX            VIN├──► +5V            │                 Q4├──────────┤IN5             │  
+                    └─────────────────┘                   │                 Q7├──────────┤IN8             │  
+                                                          └───────────────────┘  3.3V ◄──┤VCC             │  
+                                                                                         │                │  
+                    ┌─────────────────┐                 ┌─────────────────┐       GND ◄──┤GND             │  
+             SCL ◄──┤SCL              │          SCL ◄──┤SCL              │             ─┤VCC             │  
+             SDA ◄──┤SDA  I2C Display │          SDA ◄──┤SDA    I2C RTC   │        5V ◄──┤JD-VCC          │  
+            3.3V ◄──┤VCC   128x64 px  │         3.3V ◄──┤VCC    DS1307    │              └────────────────┘  
+             GND ◄──┤GND              │          GND ◄──┤GND              │  
+                    └─────────────────┘                 └─────────────────┘   
+```
 
-                            ┌─────────────────┐                 ┌─────────────────┐
-                     SCL ◄──┤SCL              │          SCL ◄──┤SCL              │
-                            │     I2C Display │                 │       I2C RTC   │
-                     SDA ◄──┤SDA   128x64 px  │          SDA ◄──┤SDA    DS1307    │
-                            │                 │                 │                 │
-                     GND ◄──┤GND              │          GND ◄──┤GND              │
-                            │                 │                 │       Remove    │
-                    3.3V ◄──┤VCC              │           5V ◄──┤VCC    R2 and R3!│
-                            └─────────────────┘                 └─────────────────┘
 
 
 ## Used Software
@@ -71,7 +63,8 @@
 
 ## Building and flashing of the firmware
 * In PlatformIO select the "nodemcu_74HC595" task of the Project
-* Unplug the external 5V power supply and connect the NodeMCU via USB cable to you computer
+* Unplug the external 5V power supply and the sensors
+* Connect the NodeMCU via USB cable to you computer
 * Build and upload the Firmware
 * Press the RST button of the NodeMCU
 * Follow the instructions of the [OpenSprinkler User Manual](https://opensprinklershop.de/wp-content/uploads/2020/05/os-manual_2.1.9.pdf)
