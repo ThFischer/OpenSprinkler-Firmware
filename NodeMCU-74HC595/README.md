@@ -7,11 +7,11 @@
 * 3 Buttons
 * OLED Display (SSD1306, 128x64)
 * Real Time Clock DS1307
+* 2 Sensor connectors 
 
 ## Known Restrictions
 * Only 8 sprinkler stations are supported (but easy to modify to support daisy-chained shift registers)
   For more details [see here](https://weworkweplay.com/play/practical-guide-to-shift-registers/)  
-* Sensor 1 and 2 are not supported yet
 * RF Transmitter not supported yet
 * Current sensing is not supported (disabled on the OLED display)
 
@@ -42,16 +42,16 @@
 3.3V ◄── Button3 ◄──┤D8               │           3.3V ◄──┤RESET            Q5├──────────┤IN6             │  
                     │               3V├──► 3.3V    GND ◄──┤GND              Q3├──────────┤IN4             │  
  GND ◄── Sensor1 ◄──┤D7            GND├──► GND    3.3V ◄──┤VCC              Q6├──────────┤IN7             │  
- GND ◄── Sensor2 ◄──┤RX            VIN├──► +5V            │                 Q4├──────────┤IN5             │  
+ GND ◄── Sensor2 ◄──┤RX            VIN├──► 5V             │                 Q4├──────────┤IN5             │  
                     └─────────────────┘                   │                 Q7├──────────┤IN8             │  
                                                           └───────────────────┘  3.3V ◄──┤VCC             │  
                                                                                          │                │  
-                    ┌─────────────────┐                 ┌─────────────────┐       GND ◄──┤GND             │  
-             SCL ◄──┤SCL              │          SCL ◄──┤SCL              │             ─┤VCC             │  
-             SDA ◄──┤SDA  I2C Display │          SDA ◄──┤SDA    I2C RTC   │        5V ◄──┤JD-VCC          │  
-            3.3V ◄──┤VCC   128x64 px  │         3.3V ◄──┤VCC    DS1307    │              └────────────────┘  
-             GND ◄──┤GND              │          GND ◄──┤GND              │  
-                    └─────────────────┘                 └─────────────────┘   
+                    ┌─────────────────┐              ┌─────────────────┐          GND ◄──┤GND             │  
+             SCL ◄──┤SCL              │       SCL ◄──┤SCL              │                ─┤VCC             │  
+             SDA ◄──┤SDA  I2C Display │       SDA ◄──┤SDA    I2C RTC   │           5V ◄──┤JD-VCC          │  
+            3.3V ◄──┤VCC   128x64 px  │      3.3V ◄──┤VCC    DS1307    │                 └────────────────┘  
+             GND ◄──┤GND              │       GND ◄──┤GND              │  
+                    └─────────────────┘              └─────────────────┘   
 ```
 
 
@@ -61,7 +61,7 @@
   * [PlatformIO IDE Extension](https://platformio.org/install/ide?install=vscode)
 
 
-## Building and flashing of the firmware
+## Building and flashing the firmware
 * In PlatformIO select the "nodemcu_74HC595" task of the Project
 * Unplug the external 5V power supply and the sensors
 * Connect the NodeMCU via USB cable to you computer
