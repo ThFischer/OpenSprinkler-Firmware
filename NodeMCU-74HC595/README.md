@@ -70,11 +70,19 @@
 * Follow the instructions of the [OpenSprinkler User Manual](https://opensprinklershop.de/wp-content/uploads/2020/05/os-manual_2.1.9.pdf)
 
 
+## PCBs
+I used two PCBs (see [hardware](./hardware) folder for KiCad and PDF files):
+
+* The "mainboard", usefull to connect the NodeMCU with all other modules  
+ ![mainboard](./hardware/mainboard/mainboard.png)
+
+* The "relayboard" is an adapter for the [SparkFun Shift Register Breakout - 74HC595](https://www.sparkfun.com/products/10680) to connect the mainboard and the [8CH Channel 5V Relay Module](https://www.ebay.com/sch/i.html?_from=R40&_nkw=8ch+relay+board+5v+blue&_sacat=0&LH_TitleDesc=0&_sop=12)  
+![relayboard](./hardware/relayboard/relayboard.png)
+
+## Wi-Fi improvements:
+If the Wi-Fi connectivity is poor you can add an [external antenna](https://www.amazon.de/gp/product/B07SSYSZM9) like I did in [another project](../README.md).  
+See also [External Antenna for ESP8266](https://www.instructables.com/External-Antenna-for-ESP8266/) for more details.
+
 ## Meta
 
 Distributed under the GNU General Public License license. See [LICENSE.txt](LICENSE.txt) for more information.
-
-## WIFI improvements:
-If the WiFi connectivity is poor you can add an [external antenna](https://www.amazon.de/gp/product/B07SSYSZM9) like I did in [another project](../README.md).
-See https://www.instructables.com/External-Antenna-for-ESP8266/ for more details.
-
