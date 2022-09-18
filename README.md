@@ -83,3 +83,6 @@ Distributed under the GNU General Public License license. See [LICENSE.txt](LICE
 Since the WiFi connectitivity was quite poor I added an [external antenna](https://www.amazon.de/gp/product/B07SSYSZM9).
 See https://www.instructables.com/External-Antenna-for-ESP8266/ for more details.
 ![Eexternal antenna](ESP12F_Relay_X4/ExternalAntenna.jpg)
+
+## Another variant …
+I added [the branch "NODEMCU_74HC595" branch](https://github.com/ThFischer/OpenSprinkler-for-ESP12F_Relay_X4/tree/NODEMCU_74HC595/NodeMCU-74HC595#readme) that uses a NodeMCU, 74HC595 ShiftRegister and an 8Ch 5V Relay board.
