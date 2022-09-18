@@ -1,3 +1,0 @@
-(sym_lib_table
-  (lib (name lua-lolin-v3)(type Legacy)(uri ${KIPRJMOD}/lua-lolin-v3/lua-lolin-v3.lib)(options "")(descr ""))
-)
