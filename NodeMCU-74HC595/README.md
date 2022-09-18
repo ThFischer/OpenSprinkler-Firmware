@@ -73,11 +73,11 @@
 ## PCBs
 I used two PCBs (see [hardware](./hardware) folder for KiCad and PDF files):
 
-* The "mainboard", usefull to connect the NodeMCU with all other modules  
+* A "mainboard" to wire the the NodeMCU with connectors for all other modules  
  ![mainboard](./hardware/mainboard/mainboard.png)
 
-* The "relayboard" is an adapter for the [SparkFun Shift Register Breakout - 74HC595](https://www.sparkfun.com/products/10680) to connect the mainboard and the [8CH Channel 5V Relay Module](https://www.ebay.com/sch/i.html?_from=R40&_nkw=8ch+relay+board+5v+blue&_sacat=0&LH_TitleDesc=0&_sop=12) and optionaly other daisy-chained relay boards.  
-![relayboard](./hardware/relayboard/relayboard.png)
+* The "74HC595-adapter" to wire up a [SparkFun Shift Register Breakout - 74HC595](https://www.sparkfun.com/products/10680) with the mainboard and the [8CH Channel 5V Relay Module](https://www.ebay.com/sch/i.html?_from=R40&_nkw=8ch+relay+board+5v+blue&_sacat=0&LH_TitleDesc=0&_sop=12) (and optionally other daisy-chained relay boards).  
+![74HC595-adapter](./hardware/74HC595-adapter/74HC595-adapter.png)
 
 ## Wi-Fi improvements:
 If the Wi-Fi connectivity is poor you can add an [external antenna](https://www.amazon.de/gp/product/B07SSYSZM9) like I did in [another project](../README.md).  

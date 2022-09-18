@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "Lua-Lolin-v3")(type "KiCad")(uri "${KIPRJMOD}/lua-lolin-v3/lua-lolin-v3.kicad_sym")(options "")(descr ""))
+)
